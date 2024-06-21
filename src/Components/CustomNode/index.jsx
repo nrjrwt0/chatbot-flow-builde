@@ -1,6 +1,6 @@
 import { useNodeId } from 'reactflow';
 import { Handle, Position } from 'reactflow';
-import './index.css';
+import './style.css';
 import { MdMessage } from 'react-icons/md';
 import { IoLogoWhatsapp } from 'react-icons/io';
 

@@ -24,4 +24,7 @@
 .label{
   font-size: 8px;
   padding: 6px;
+  word-break: break-word;
+  background-color: white;
+  border-radius: 0 0 4px 4px;
 }

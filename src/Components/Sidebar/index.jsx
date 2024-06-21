@@ -1,13 +1,20 @@
-import React from 'react';
-import './index.css';
+import React, { useCallback } from 'react';
+import './style.css';
 import MessageNode from '../MessageNode/MessageNode';
 import EditContainer from '../EditContainer';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+  const { value, setEditText } = props;
+  const onBackClick = useCallback(() => {
+    setEditText();
+  }, [setEditText]);
   return (
     <aside>
-      <MessageNode />
-      <EditContainer />
+      {!value ? (
+        <MessageNode />
+      ) : (
+        <EditContainer {...props} onBackClick={onBackClick} />
+      )}
     </aside>
   );
 };

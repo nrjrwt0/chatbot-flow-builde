@@ -1,9 +1,8 @@
 import React from 'react';
-import './index.css';
+import './style.css';
 import { MdMessage } from 'react-icons/md';
-import { IoMdArrowRoundBack } from 'react-icons/io';
 
-const MessageNode = ({ value, onChange }) => {
+const MessageNode = () => {
   const onDragStart = (event) => {
     event.dataTransfer.effectAllowed = 'move';
   };

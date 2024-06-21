@@ -1,11 +1,14 @@
 import React from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import './style.css';
 
-const EditContainer = ({ value, onChange }) => {
+const EditContainer = ({ value, onChange, onBackClick }) => {
   return (
     <div className='editable'>
       <div className='editable-heading'>
-        <IoMdArrowRoundBack />
+        <span onClick={onBackClick}>
+          <IoMdArrowRoundBack />
+        </span>
         <p>Message</p>
       </div>
       <div className='label-text'>
