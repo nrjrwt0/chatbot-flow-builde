@@ -6,3 +6,13 @@ export const initialNodes = [
     position: { x: 250, y: 5 },
   },
 ];
+
+export const initAlertContent = {
+  type: '',
+  message: '',
+};
+
+export const AlertType = {
+  error: 'Error',
+  success: 'Success',
+};

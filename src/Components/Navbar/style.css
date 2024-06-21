@@ -3,8 +3,9 @@
   width: 100%;
   background-color:gainsboro;
   display: flex;
-  flex-direction: row-reverse;
+  gap: 8px;
   padding: 6px 40px;
+  flex-direction: row-reverse;
 }
 
 .navbar > button {

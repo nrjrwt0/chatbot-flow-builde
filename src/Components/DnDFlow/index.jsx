@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import ReactFlow, {
   addEdge,
   useNodesState,
@@ -13,7 +13,7 @@ import './style.css';
 import Sidebar from '../Sidebar';
 import CustomNode from '../CustomNode';
 import Navbar from '../Navbar';
-import { initialNodes } from './constant';
+import { AlertType, initAlertContent, initialNodes } from './constant';
 import { getId } from './utils';
 import Snackbar from '../Snackbar';
 
@@ -28,6 +28,8 @@ const DnDFlow = () => {
   const { screenToFlowPosition } = useReactFlow();
   const [editedText, setEditText] = useState(nodes.data);
   const [selectedId, selectedNodeId] = useState();
+  const [alertContent, setAlertContent] = useState(initAlertContent);
+  const timerRef = useRef();
 
   const onNodeClick = useCallback((_e, value) => {
     const { data, id } = value;
@@ -65,30 +67,49 @@ const DnDFlow = () => {
     [edges]
   );
 
+  const showSnackBar = useCallback((type, message) => {
+    setAlertContent({ type, message });
+    timerRef.current = setTimeout(() => {
+      setAlertContent(initialNodes);
+    }, 2000);
+  }, []);
+
   const checkForDisconnectedNodes = useCallback(() => {
     if (nodes.length === 1) {
-      alert('Only one node is present');
+      setAlertContent();
+      showSnackBar(AlertType.success, 'Only one node is present');
     } else {
       const disconnectedNodes = nodes.filter(
         (node) => !hasIncomingEdges(node.id) && !hasOutgoingEdge(node.id)
       );
       if (disconnectedNodes.length > 0) {
-        alert('Error: There are disconnected nodes in the flow.');
+        showSnackBar(
+          AlertType.error,
+          'There are disconnected nodes in the flow.'
+        );
       } else {
-        alert('no disconnected node available');
+        showSnackBar(AlertType.success, 'No disconnected node available');
       }
     }
-  }, [hasIncomingEdges, hasOutgoingEdge, nodes]);
+  }, [hasIncomingEdges, hasOutgoingEdge, nodes, showSnackBar]);
+
+  const clearAllNodesAndEdges = useCallback(() => {
+    setNodes(initialNodes);
+    setEdges([]);
+  }, [setEdges, setNodes]);
 
   const onConnect = useCallback(
     (params) => {
       if (hasOutgoingEdge(params.source)) {
-        alert('A node can only have one outgoing edge.');
+        showSnackBar(
+          AlertType.error,
+          'A node can only have one outgoing edge.'
+        );
         return;
       }
       setEdges((eds) => addEdge(params, eds));
     },
-    [hasOutgoingEdge, setEdges]
+    [hasOutgoingEdge, setEdges, showSnackBar]
   );
 
   const onDragOver = useCallback((event) => {
@@ -114,9 +135,21 @@ const DnDFlow = () => {
     [screenToFlowPosition, setNodes]
   );
 
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
-      <Navbar checkForDisconnectedNodes={checkForDisconnectedNodes} />
+      <Snackbar {...alertContent} />
+      <Navbar
+        checkForDisconnectedNodes={checkForDisconnectedNodes}
+        clearAllNodesAndEdges={clearAllNodesAndEdges}
+      />
       <div className='dndflow'>
         <div className='reactflow-wrapper' ref={reactFlowWrapper}>
           <ReactFlow

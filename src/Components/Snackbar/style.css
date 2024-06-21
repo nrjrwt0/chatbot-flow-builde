@@ -1,0 +1,22 @@
+.snackbar-container{
+  position: absolute;
+  height: 30px;
+  width: 30%;
+  top: 6px;
+  left: 50%;
+  border-radius: 6px;
+  transform: translate(-50%, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error{
+  background-color: #FF3333;
+  color: white;
+}
+
+.success{
+  background-color: #22bb33;
+  color: white;
+}

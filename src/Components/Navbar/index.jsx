@@ -1,9 +1,11 @@
 import React from 'react';
+import './style.css';
 
-const Navbar = ({ checkForDisconnectedNodes = () => {} }) => {
+const Navbar = ({ checkForDisconnectedNodes, clearAllNodesAndEdges }) => {
   return (
     <nav className='navbar'>
       <button onClick={checkForDisconnectedNodes}>Save Changes</button>
+      <button onClick={clearAllNodesAndEdges}>Clear</button>
     </nav>
   );
 };
