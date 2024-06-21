@@ -26,4 +26,19 @@ textarea {
   width: 100%;
   margin: auto;
   height: 60px;
+  margin-bottom: 12px;
+
+}
+
+.save-message{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.save-message > button {
+  border: 1px solid rgb(75, 75, 226);
+  border-radius: 6px;
+  padding: 2px 18px;
+  color: rgb(75, 75, 226);
 }

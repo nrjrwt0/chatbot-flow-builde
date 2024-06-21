@@ -5,7 +5,7 @@ import EditContainer from '../EditContainer';
 
 const Sidebar = (props) => {
   const { value, setEditText } = props;
-  const onBackClick = useCallback(() => {
+  const saveMessage = useCallback(() => {
     setEditText();
   }, [setEditText]);
   return (
@@ -13,7 +13,7 @@ const Sidebar = (props) => {
       {!value ? (
         <MessageNode />
       ) : (
-        <EditContainer {...props} onBackClick={onBackClick} />
+        <EditContainer {...props} saveMessage={saveMessage} />
       )}
     </aside>
   );

@@ -14,19 +14,28 @@ import Sidebar from '../Sidebar';
 import CustomNode from '../CustomNode';
 import Navbar from '../Navbar';
 import { AlertType, initAlertContent, initialNodes } from './constant';
-import { getId } from './utils';
+import {
+  getId,
+  removeFlowFromLocalStorage,
+  retrieveFlowFromLocalStorage,
+  saveFlowToLocalStorage,
+} from './utils';
 import Snackbar from '../Snackbar';
 
 const nodeTypes = {
   messageNode: CustomNode,
 };
 
+const { nodes: savedNodes, edges: savedEdges } = retrieveFlowFromLocalStorage();
+
 const DnDFlow = () => {
   const reactFlowWrapper = useRef(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState(
+    savedNodes || initialNodes
+  );
+  const [edges, setEdges, onEdgesChange] = useEdgesState(savedEdges || []);
   const { screenToFlowPosition } = useReactFlow();
-  const [editedText, setEditText] = useState(nodes.data);
+  const [editedText, setEditText] = useState();
   const [selectedId, selectedNodeId] = useState();
   const [alertContent, setAlertContent] = useState(initAlertContent);
   const timerRef = useRef();
@@ -88,14 +97,16 @@ const DnDFlow = () => {
           'There are disconnected nodes in the flow.'
         );
       } else {
-        showSnackBar(AlertType.success, 'No disconnected node available');
+        saveFlowToLocalStorage(nodes, edges);
+        showSnackBar(AlertType.success, 'Saved Data');
       }
     }
-  }, [hasIncomingEdges, hasOutgoingEdge, nodes, showSnackBar]);
+  }, [edges, hasIncomingEdges, hasOutgoingEdge, nodes, showSnackBar]);
 
   const clearAllNodesAndEdges = useCallback(() => {
     setNodes(initialNodes);
     setEdges([]);
+    removeFlowFromLocalStorage();
   }, [setEdges, setNodes]);
 
   const onConnect = useCallback(
