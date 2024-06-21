@@ -1,11 +1,14 @@
 import React from 'react';
-import NewMessageNode from './NewMessageNode';
+import './index.css';
+import MessageNode from '../MessageNode/MessageNode';
+import EditContainer from '../EditContainer';
 
 const Sidebar = () => {
   return (
-    <div>
-      <NewMessageNode />
-    </div>
+    <aside>
+      <MessageNode />
+      <EditContainer />
+    </aside>
   );
 };
 

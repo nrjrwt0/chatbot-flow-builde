@@ -1,0 +1,102 @@
+.dndnode {
+  height: 20px;
+  padding: 4px;
+  border: 1px solid #1a192b;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.send-message {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.send-message-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  background: #90ee90;
+  padding: 2px 5px;
+  width: 200px;
+  border-radius: 5px 5px 0 0;
+}
+.send-message-label {
+  padding: 5px;
+  text-align: center;
+}
+
+ .new-message-node{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(75, 75, 226);
+    border-radius: 6px;
+    padding: 8px;
+    color: rgb(75, 75, 226);
+
+  }
+
+  .new-message-node > svg{
+    width: 16px;
+    flex: 1;
+  }
+
+  .new-message-node > p {
+    flex: 1;
+  }
+
+  .navbar{
+    height: 40px;
+    width: 100%;
+    background-color:gainsboro;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 6px 40px;
+  }
+
+  .navbar > button {
+    border: 1px solid rgb(75, 75, 226);
+    border-radius: 6px;
+    padding: 2px 18px;
+    color: rgb(75, 75, 226);
+  }
+
+  .container{
+    height: 100vh;
+  }
+
+
+
+  .editable{
+    border: 1px solid black;
+    padding: 2px 2px 20px 2px;
+  }
+.editable-heading{
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  margin-bottom: 12px; 
+  padding: 4px 2px;
+
+}
+
+.editable-heading > p{
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+}
+
+.label-text{
+  padding: 4px;
+}
+
+  textarea{
+    display: block;
+    width: 100%;
+    margin: auto;
+    height: 60px;
+  }

@@ -1,0 +1,27 @@
+.node-container{
+  border: 1px solid black;
+  width: 120px;
+  border-radius: 4px;
+}
+
+.node-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(31, 234, 31);
+  padding: 0 8px;
+  border-radius: 4px 4px 0 0;
+}
+
+.node-header > p {
+ font-size: 8px;
+}
+
+.node-header > svg{
+  width: 8px;
+}
+
+.label{
+  font-size: 8px;
+  padding: 6px;
+}

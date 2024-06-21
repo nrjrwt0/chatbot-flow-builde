@@ -1,0 +1,15 @@
+.navbar{
+  height: 40px;
+  width: 100%;
+  background-color:gainsboro;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 6px 40px;
+}
+
+.navbar > button {
+  border: 1px solid rgb(75, 75, 226);
+  border-radius: 6px;
+  padding: 2px 18px;
+  color: rgb(75, 75, 226);
+}

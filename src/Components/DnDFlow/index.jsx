@@ -1,6 +1,5 @@
 import React, { useRef, useCallback } from 'react';
 import ReactFlow, {
-  ReactFlowProvider,
   addEdge,
   useNodesState,
   useEdgesState,
@@ -11,18 +10,22 @@ import 'reactflow/dist/style.css';
 
 import './index.css';
 import Sidebar from '../Sidebar';
+import CustomNode from '../CustomNode';
 
 const initialNodes = [
   {
-    id: '1',
-    type: 'input',
+    id: crypto.randomUUID(),
+    type: 'messageNode',
     data: { label: 'input node' },
     position: { x: 250, y: 5 },
   },
 ];
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+const getId = () => `dndnode_${crypto.randomUUID()}`;
+
+const nodeTypes = {
+  messageNode: CustomNode,
+};
 
 const DnDFlow = () => {
   const reactFlowWrapper = useRef(null);
@@ -32,7 +35,7 @@ const DnDFlow = () => {
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [setEdges]
   );
 
   const onDragOver = useCallback((event) => {
@@ -53,7 +56,7 @@ const DnDFlow = () => {
       });
       const newNode = {
         id: getId(),
-        type: 'input',
+        type: 'messageNode',
         position,
         data: { label: `input node` },
       };
@@ -74,6 +77,7 @@ const DnDFlow = () => {
           onConnect={onConnect}
           onDrop={onDrop}
           onDragOver={onDragOver}
+          nodeTypes={nodeTypes}
           fitView
         >
           <Controls />
