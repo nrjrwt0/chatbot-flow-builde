@@ -22,10 +22,12 @@ import {
 } from './utils';
 import Snackbar from '../Snackbar';
 
+// Defining custom node types
 const nodeTypes = {
   messageNode: CustomNode,
 };
 
+// Retrieving saved nodes and edges from localstorage
 const { nodes: savedNodes, edges: savedEdges } = retrieveFlowFromLocalStorage();
 
 const DnDFlow = () => {
@@ -40,12 +42,14 @@ const DnDFlow = () => {
   const [alertContent, setAlertContent] = useState(initAlertContent);
   const timerRef = useRef();
 
+  // node click event
   const onNodeClick = useCallback((_e, value) => {
     const { data, id } = value;
     setEditText(data.label);
     selectedNodeId(id);
   }, []);
 
+  // Handling input change event
   const handleChange = useCallback(
     (e) => {
       const { value } = e.target;
@@ -62,6 +66,7 @@ const DnDFlow = () => {
     [selectedId, setNodes]
   );
 
+  // Checking if a node has outgoing edges
   const hasOutgoingEdge = useCallback(
     (nodeId) => {
       return edges.some((edge) => edge.source === nodeId);
@@ -69,6 +74,7 @@ const DnDFlow = () => {
     [edges]
   );
 
+  // Checking if a node has incoming edges
   const hasIncomingEdges = useCallback(
     (nodeId) => {
       return edges.some((edge) => edge.target === nodeId);
@@ -76,6 +82,7 @@ const DnDFlow = () => {
     [edges]
   );
 
+  // Show snackbar with a message
   const showSnackBar = useCallback((type, message) => {
     setAlertContent({ type, message });
     timerRef.current = setTimeout(() => {
@@ -83,6 +90,7 @@ const DnDFlow = () => {
     }, 2000);
   }, []);
 
+  // Checking for disconnected nodes in the flow
   const checkForDisconnectedNodes = useCallback(() => {
     if (nodes.length === 1) {
       setAlertContent();
@@ -103,12 +111,14 @@ const DnDFlow = () => {
     }
   }, [edges, hasIncomingEdges, hasOutgoingEdge, nodes, showSnackBar]);
 
+  // Clear all nodes and edges
   const clearAllNodesAndEdges = useCallback(() => {
     setNodes(initialNodes);
     setEdges([]);
     removeFlowFromLocalStorage();
   }, [setEdges, setNodes]);
 
+  // Handling edge connection event
   const onConnect = useCallback(
     (params) => {
       if (hasOutgoingEdge(params.source)) {
@@ -123,11 +133,13 @@ const DnDFlow = () => {
     [hasOutgoingEdge, setEdges, showSnackBar]
   );
 
+  // Handling drag over event
   const onDragOver = useCallback((event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
+  // Handling drop event
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
@@ -146,6 +158,7 @@ const DnDFlow = () => {
     [screenToFlowPosition, setNodes]
   );
 
+  // Clean up timer on component unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) {
