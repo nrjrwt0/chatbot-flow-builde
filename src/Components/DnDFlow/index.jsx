@@ -7,6 +7,7 @@ import ReactFlow, {
   useReactFlow,
   Background,
   BackgroundVariant,
+  MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import './style.css';
@@ -128,7 +129,18 @@ const DnDFlow = () => {
         );
         return;
       }
-      setEdges((eds) => addEdge(params, eds));
+      console.log({ params });
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            markerEnd: {
+              type: MarkerType.Arrow,
+            },
+          },
+          eds
+        )
+      );
     },
     [hasOutgoingEdge, setEdges, showSnackBar]
   );

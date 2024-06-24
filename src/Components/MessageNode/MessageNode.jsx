@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './style.css';
 import { MdMessage } from 'react-icons/md';
 
-const MessageNode = () => {
+const MessageNode = memo(() => {
   const onDragStart = (event) => {
     event.dataTransfer.effectAllowed = 'move';
   };
@@ -19,6 +19,6 @@ const MessageNode = () => {
       <p>New Message</p>
     </div>
   );
-};
+});
 
 export default MessageNode;

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import './style.css';
 
-const EditContainer = ({ value, onChange, saveMessage }) => {
+const EditContainer = memo(({ value, onChange, saveMessage }) => {
   return (
     <div className='editable'>
       <div className='editable-heading'>
@@ -20,6 +20,6 @@ const EditContainer = ({ value, onChange, saveMessage }) => {
       </div>
     </div>
   );
-};
+});
 
 export default EditContainer;

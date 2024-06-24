@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import './style.css';
 import MessageNode from '../MessageNode/MessageNode';
 import EditContainer from '../EditContainer';
 
-const Sidebar = (props) => {
+const Sidebar = memo((props) => {
   const { value, setEditText } = props;
   const saveMessage = useCallback(() => {
     setEditText();
@@ -17,6 +17,6 @@ const Sidebar = (props) => {
       )}
     </aside>
   );
-};
+});
 
 export default Sidebar;
